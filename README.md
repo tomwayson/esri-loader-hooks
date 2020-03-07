@@ -1,167 +1,239 @@
-# TSDX React User Guide
+# esri-loader-hooks
 
-Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
+Custom React [hooks](https://reactjs.org/docs/hooks-intro.html) for using the [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/) with [esri-loader](https://github.com/Esri/esri-loader).
 
-> This TSDX setup is meant for developing React components (not apps!) that can be published to NPM. If you’re looking to build an app, you should use `create-react-app`, `razzle`, `nextjs`, `gatsby`, or `react-static`.
-
-> If you’re new to TypeScript and React, checkout [this handy cheatsheet](https://github.com/sw-yx/react-typescript-cheatsheet/)
-
-## Commands
-
-TSDX scaffolds your new library inside `/src`, and also sets up a [Parcel-based](https://parceljs.org) playground for it inside `/example`.
-
-The recommended workflow is to run TSDX in one terminal:
+## Install
 
 ```bash
-npm start # or yarn start
+npm install --save esri-loader esri-loader-hooks
 ```
 
-This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
-
-Then run the example inside another:
+or
 
 ```bash
-cd example
-npm i # or yarn to install dependencies
-npm start # or yarn start
+yarn add esri-loader esri-loader-hooks
 ```
 
-The default example imports and live reloads whatever is in `/dist`, so if you are seeing an out of date component, make sure TSDX is running in watch mode like we recommend above. **No symlinking required**, [we use Parcel's aliasing](https://github.com/palmerhq/tsdx/pull/88/files).
+## Usage
 
-To do a one-off build, use `npm run build` or `yarn build`.
+This library provides a handful of hooks for loading ArcGIS maps and scenes in you components, and then registering [event or watch handles](#events-and-watches), or adding [graphics](#graphics).
 
-To run tests, use `npm test` or `yarn test`.
+### Maps, Scenes, and Views
 
-## Configuration
+You'll want to start with one of the hooks for working with [maps](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html), scenes, and their associated [views](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html). 
 
-Code quality is [set up for you](https://github.com/palmerhq/tsdx/pull/45/files) with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
+All of these hooks return an array where the first element is a [ref](https://reactjs.org/docs/refs-and-the-dom.html) you use to set the DOM node to be used as the view's [container](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html#container), and the second element is the instance of the view, which you can use with the [handler](#events-and-watches) or [graphics](#graphics) hooks below
 
-### Jest
+All of these hooks clean up after themselves by destroying view instance when the component will un-mount.
 
-Jest tests are set up to run with `npm test` or `yarn test`. This runs the test watcher (Jest) in an interactive mode. By default, runs tests related to files changed since the last commit.
+#### useWebMap
 
-#### Setup Files
+Load a [`WebMap`](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebMap.html) in a [`MapView`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html).
 
-This is the folder structure we set up for you:
+```jsx
+import React from 'react';
+import { useWebMap } from 'esri-loader-hooks';
 
-```shell
-/example
-  index.html
-  index.tsx       # test your component here in a demo app
-  package.json
-  tsconfig.json
-/src
-  index.tsx       # EDIT THIS
-/test
-  blah.test.tsx   # EDIT THIS
-.gitignore
-package.json
-README.md         # EDIT THIS
-tsconfig.json
-```
-
-#### React Testing Library
-
-We do not set up `react-testing-library` for you yet, we welcome contributions and documentation on this.
-
-### Rollup
-
-TSDX uses [Rollup v1.x](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
-
-### TypeScript
-
-`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
-
-## Continuous Integration
-
-### Travis
-
-_to be completed_
-
-### Circle
-
-_to be completed_
-
-## Optimizations
-
-Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
-
-```js
-// ./types/index.d.ts
-declare var __DEV__: boolean;
-
-// inside your code...
-if (__DEV__) {
-  console.log('foo');
+function WebMap({ id }) {
+  // takes map as a string (item id), or JSON (item data)
+  const [ref] = useWebMap(id);
+  return <div style={{ height: 400 }} ref={ref} />;
 }
 ```
 
-You can also choose to install and use [invariant](https://github.com/palmerhq/tsdx#invariant) and [warning](https://github.com/palmerhq/tsdx#warning) functions.
+#### useWebScene
 
-## Module Formats
+Load a [`WebScene`](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebScene.html) in a [`SceneView`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
 
-CJS, ESModules, and UMD module formats are supported.
 
-The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
+```jsx
+import React from 'react';
+import { useWebScene } from 'esri-loader-hooks';
 
-## Using the Playground
-
-```bash
-cd example
-npm i # or yarn to install dependencies
-npm start # or yarn start
+function WebScene({ id }) {
+  // takes scene as a string (item id), or JSON (item data)
+  const [ref] = useWebScene(id);
+  return <div style={{ height: 400 }} ref={ref} />;
+}
 ```
 
-The default example imports and live reloads whatever is in `/dist`, so if you are seeing an out of date component, make sure TSDX is running in watch mode like we recommend above. **No symlinking required**!
+#### useMap
 
-## Deploying the Playground
+Load a [`Map`](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html) in a [`MapView`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html).
 
-The Playground is just a simple [Parcel](https://parceljs.org) app, you can deploy it anywhere you would normally deploy that. Here are some guidelines for **manually** deploying with the Netlify CLI (`npm i -g netlify-cli`):
+```jsx
+import React from 'react';
+import { useMap } from 'esri-loader-hooks';
 
-```bash
-cd example # if not already in the example folder
-npm run build # builds to dist
-netlify deploy # deploy the dist folder
+function MapView() {
+  // takes initial map and view properties as a POJO
+  const properties = {
+    map: {
+      basemap: "streets"
+    },
+    view: {
+      center: [15, 65],
+      zoom: 4
+    }
+  };
+  const [ref] = useMap(properties);
+  return <div style={{ height: 400 }} ref={ref} />;
+}
 ```
 
-Alternatively, if you already have a git repo connected, you can set up continuous deployment with Netlify:
+#### useScene
 
-```bash
-netlify init
-# build command: yarn build && cd example && yarn && yarn build
-# directory to deploy: example/dist
-# pick yes for netlify.toml
+Load a [`Map`](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html) in a [`SceneView`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html).
+
+```jsx
+import React from 'react';
+import { useScene } from 'esri-loader-hooks';
+
+function SceneView() {
+  // takes initial map and view properties as a POJO
+  const properties = {
+    map: {
+      basemap: "streets",
+      ground: "world-elevation"
+    },
+    view: {
+      scale: 50000000,
+      center: [-101.17, 21.78]
+    }
+  };
+  const [ref] = useScene(properties);
+  return <div style={{ height: 400 }} ref={ref} />;
+}
 ```
 
-## Named Exports
+### Events and Watches
 
-Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
+Once you've used one of the above hooks to load a view, you can register event handlers or watch for property changes with the hooks below.
 
-## Including Styles
+All of these hooks clean up after themselves by removing the event or watch handle when the callback changes or the component will un-mount.
 
-There are many ways to ship styles, including with CSS-in-JS. TSDX has no opinion on this, configure how you like.
+#### useEvents
 
-For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
+```jsx
+import React from 'react';
+import { useMap, useEvent } from 'esri-loader-hooks';
 
-## Publishing to NPM
-
-We recommend using [np](https://github.com/sindresorhus/np).
-
-## Usage with Lerna
-
-When creating a new package with TSDX within a project set up with Lerna, you might encounter a `Cannot resolve dependency` error when trying to run the `example` project. To fix that you will need to make changes to the `package.json` file _inside the `example` directory_.
-
-The problem is that due to the nature of how dependencies are installed in Lerna projects, the aliases in the example project's `package.json` might not point to the right place, as those dependencies might have been installed in the root of your Lerna project.
-
-Change the `alias` to point to where those packages are actually installed. This depends on the directory structure of your Lerna project, so the actual path might be different from the diff below.
-
-```diff
-   "alias": {
--    "react": "../node_modules/react",
--    "react-dom": "../node_modules/react-dom"
-+    "react": "../../../node_modules/react",
-+    "react-dom": "../../../node_modules/react-dom"
-   },
+function ClickableMap({ onClick }) {
+  const properties = {
+    map: {
+      basemap: "streets"
+    },
+    view: {
+      center: [15, 65],
+      zoom: 4
+    }
+  };
+  const [ref, view] = useMap(properties);
+  // we use the second element returned above to get the view instance
+  useEvent(view, "click", onClick);
+  return <div style={{ height: 400 }} ref={ref} />;
+}
 ```
 
-An alternative to fixing this problem would be to remove aliases altogether and define the dependencies referenced as aliases as dev dependencies instead. [However, that might cause other problems.](https://github.com/palmerhq/tsdx/issues/64)
+#### useEvents
+
+You can register the same callback for multiple events with `useEvents(view, arrayOfEventNames, callback)`.
+
+#### useWatch
+
+You can watch for changes to the view, or any instance of [`Accessor`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Accessor.html) with the hooks below.
+
+```jsx
+import React from 'react';
+import { useScene, useWatch } from 'esri-loader-hooks';
+
+function WatchedScene({ onUpdateChange }) {
+  // takes initial map and view properties as a POJO
+  const properties = {
+    map: {
+      basemap: "streets",
+      ground: "world-elevation"
+    },
+    view: {
+      scale: 50000000,
+      center: [-101.17, 21.78]
+    }
+  };
+  const [ref, view] = useScene(properties);
+  // we use the second element returned above to get the view instance
+  useWatch(view, 'updating', onUpdateChange);
+  return <div style={{ height: 400 }} ref={ref} />;
+}
+```
+
+#### useWatches
+
+You can use the same callabck to watch changes to multiple properties with `useWatches(anyAccessor, arrayOfPropertyNames, callback)`.
+
+### Graphics
+
+Sometimes you have a component that takes a property like coordinates, or an array of geocoding results, and needs to show them as graphics on the view. The hooks below let you do that.
+
+#### useGraphic
+
+```jsx
+import React from "react";
+import { useMap, useGraphics } from "esri-loader-hooks";
+
+// hooks allow us to create a map component as a function
+function PointMap({ latitude, longitude }) {
+  const geometry = {
+    type: "point", // autocasts as new Point()
+    latitude, 
+    longitude
+  };
+  var symbol = {
+    type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+    color: [226, 119, 40],
+  };
+  const properties = {
+    map: {
+      basemap: "hybrid"
+    },
+    view: {
+      center: [-80, 35],
+      zoom: 3
+    }
+  };
+  const [ref, view] = useMap(properties);
+  // takes a view instance and graphic as a POJO
+  // the point will be replaced if the lat/lng props change
+  useGraphic(view, { geometry, symbol });
+  return <div style={{ height: 400 }} ref={ref} />;
+}
+```
+
+#### useGraphics
+
+You can add multiple graphics at the same time with `useGraphics(view, arrayOfJsonGraphics)`.
+
+## FAQ
+
+#### Do these hooks work with version 3.x of the ArcGIS API?
+
+No.
+
+#### How does this compare to react-arcgis?
+
+This library is like a hooks version of [react-arcgis](https://github.com/Esri/react-arcgis), which is a library of a few generic components to get you started using esri-loader. My hypothesis is that a library of generic hooks will be more <em>use</em>ful than generic components. This is because the hooks should be easier to compose into many different custom components.
+
+#### Can I use this with the [@arcgis/webpack-plugin](https://github.com/esri/arcgis-webpack-plugin#readme)?
+
+No. The view and graphics hooks are bound to esri-loader. That said, the event and watch hooks could be used without esri-loader. Ideally someone would move those into their own library (cough, Rene) that could be used in both types of apps.
+
+#### Can I use this in my production app?
+
+I'm not (yet), but you go ahead.
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+## Development
+
+See [the development instructions](./CONTRIBUTING.md#development).
