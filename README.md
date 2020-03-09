@@ -1,6 +1,6 @@
 # esri-loader-hooks
 
-Custom React [hooks](https://reactjs.org/docs/hooks-intro.html) for using the [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/) with [esri-loader](https://github.com/Esri/esri-loader).
+Custom React [hooks](https://reactjs.org/docs/hooks-intro.html) for using the [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/) with [esri-loader].
 
 ## Install
 
@@ -222,9 +222,13 @@ No.
 
 This library is like a hooks version of [react-arcgis](https://github.com/Esri/react-arcgis), which is a library of a few generic components to get you started using esri-loader. My hypothesis is that a library of generic hooks will be more <em>use</em>ful than generic components. This is because the hooks should be easier to compose into many different custom components.
 
-#### Can I use this with the [@arcgis/webpack-plugin](https://github.com/esri/arcgis-webpack-plugin#readme)?
+#### Can I use this with the [@arcgis/webpack-plugin](https://github.com/esri/arcgis-webpack-plugin)?
 
-No. The view and graphics hooks are bound to esri-loader. That said, the event and watch hooks could be used without esri-loader. Ideally someone would move those into their own library (cough, Rene) that could be used in both types of apps.
+No. The view and graphics hooks use [esri-loader].
+
+That said, you probably don't need a library like this if you're using the webpack plugin. The view and graphics hooks help deal with the complexity introduced by the fact that [`loadModules()` is always asynchronous](https://github.com/Esri/esri-loader/#loading-modules-from-the-arcgis-api-for-javascript).
+
+The event and watch hooks could be used without esri-loader. For now you could copy and paste them into your application. If we add more hooks there, it may make sense to move those into their own library that could be used in both types of applications.
 
 #### Can I use this in my production app?
 
@@ -237,3 +241,5 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 ## Development
 
 See [the development instructions](./CONTRIBUTING.md#development).
+
+[esri-loader]:https://github.com/Esri/esri-loader
