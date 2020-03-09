@@ -57,9 +57,10 @@ export function loadItem(
   });
 }
 
-export function loadWidget(name: string, properties: any) {
-  const widgetModule = `esri/widgets/${name}`;
-  return loadModules([widgetModule]).then(([WidgetClass]) => {
-    return new WidgetClass(properties);
-  });
+export function destroyView(view: any) {
+  if (!view) {
+    return;
+  }
+  // undocumented way to destroy a view
+  view = view.container = null;
 }
