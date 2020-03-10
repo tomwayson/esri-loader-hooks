@@ -13,8 +13,8 @@ function App() {
     <Tabs>
       <h1>esri-loader-hooks</h1>
       <p>
-        Custom hooks for using the ArcGIS API for JavaScript in React
-        components.
+        Custom React <a href="https://reactjs.org/docs/hooks-intro.html">hooks</a> for using the <a href="https://developers.arcgis.com/javascript/">ArcGIS API for JavaScript</a> with <a href="https://github.com/Esri/esri-loader">esri-loader</a>.
+        See the documentation and source on <a href="https://github.com/tomwayson/esri-loader-hooks">github</a>.
       </p>
       <TabList>
         <Tab>Web Map</Tab>
