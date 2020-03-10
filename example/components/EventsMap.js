@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useScene, useEvents, useWatches } from '../../.';
 
 // hooks allow us to create a map component as a function
-function ClickMap() {
+function EventsMap() {
   const [eventLog, setEventLog] = useState(
     'Interact with the view to see the events.'
   );
@@ -16,24 +16,24 @@ function ClickMap() {
     }
     console.log(propertyName, newValue);
   }, []);
-  // takes initial map and view properties as a POJO
+  // takes initial map and view properties as POJOs
+  const map = {
+    basemap: 'streets',
+    ground: 'world-elevation'
+  };
   const options = {
-    map: {
-      basemap: 'streets',
-      ground: 'world-elevation'
-    },
     view: {
       camera: {
         position: [-101.17, 20.76793656, 12908164.47184],
         heading: 0.0,
-        tilt: 0.5,
-        pixelratio: 2 // pretty sure this doesn't work
-      }
+        tilt: 0.5
+      },
+      pixelratio: 2
     }
   };
   // returns a ref you can use to assign a container DOM node
   // and returns the map view instance, which you can pass to other hooks
-  const [ref, view] = useScene(options);
+  const [ref, view] = useScene(map, options);
   // wire up the events
   const events = [
     'pointer-enter',
@@ -79,4 +79,4 @@ function ClickMap() {
   );
 }
 
-export default ClickMap;
+export default EventsMap;

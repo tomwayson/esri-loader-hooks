@@ -53,7 +53,7 @@ function App() {
       </TabPanel>
       <TabPanel>
         <p>
-          <code>{`const [ref] = useMap({map: {basemap}, view: {center, zoom}});`}</code>
+          <code>{`const [ref] = useMap({basemap: "streets"}, {view: {center, zoom}});`}</code>
         </p>
         <MapView />
         <p>
@@ -66,7 +66,7 @@ function App() {
       </TabPanel>
       <TabPanel>
         <p>
-          <code>{`const [ref] = useScene({map: {basemap, ground}});`}</code>
+          <code>{`const [ref] = useScene({basemap, ground}, {view: {center, zoom});`}</code>
         </p>
         <SceneView />
         <p>
