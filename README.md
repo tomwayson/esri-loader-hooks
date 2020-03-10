@@ -4,19 +4,23 @@ Custom React [hooks](https://reactjs.org/docs/hooks-intro.html) for using the [A
 
 ## Install
 
-```bash
-npm install --save esri-loader esri-loader-hooks
-```
-
-or
-
-```bash
-yarn add esri-loader esri-loader-hooks
-```
+`npm install --save esri-loader esri-loader-hooks` or `yarn add esri-loader esri-loader-hooks`
 
 ## Usage
 
+```jsx
+import { 
+  useMap, useScene, useWebMap, useWebScene, // create a map or scene
+  useEvent, useEvents, useWatch, useWatches, // handle events or property changes
+  useGraphic, useGraphics // add graphics to a map/scene
+} from 'esri-loader-hooks';
+```
+
 This library provides a handful of hooks for [loading ArcGIS maps and scenes](#maps-scenes-and-views) in you components, and then registering [event or watch handles](#events-and-watches), or adding [graphics](#graphics).
+
+### Configure esri-loader
+
+Before using these hooks you'll need to at least [load the ArcGIS API styles](https://github.com/Esri/esri-loader#loading-styles) and optionally [configure esri-loader](https://github.com/Esri/esri-loader#configuring-esri-loader).
 
 ### Maps, Scenes, and Views
 
