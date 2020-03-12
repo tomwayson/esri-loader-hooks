@@ -71,9 +71,7 @@ function EventsMap() {
   return (
     <>
       <div style={{ height: 400 }} ref={ref} />
-      <p>
-        Zoom: {zoom}. {eventLog}
-      </p>
+      <p><strong>Zoom: {zoom}. {eventLog}</strong></p>
       <p>Open the console to see the complete log of all property changes.</p>
     </>
   );

@@ -9,7 +9,7 @@ import EventsMap from './EventsMap';
 import GraphicsMap from './GraphicsMap';
 
 function App() {
-  return (
+  return <div className="container">
     <Tabs>
       <h1>esri-loader-hooks</h1>
       <p>
@@ -93,7 +93,7 @@ function App() {
         </p>
       </TabPanel>
       <TabPanel>
-        <pre><code>{`  const [ref, view] = useMap({basemap}, {view: {center, zoom});
+        <pre><code>{`  const [ref, view] = useMap({basemap: "hybrid"}, {view: {center, zoom});
   useGraphics(view, [pointJson, lineJson, polygonJson]);
   return <div style={{ height: 400 }} ref={ref} />;
 `}</code></pre>
@@ -107,7 +107,7 @@ function App() {
         </p>
       </TabPanel>
     </Tabs>
-  );
+  </div>;
 }
 
 export default App;
