@@ -1,3 +1,14 @@
-body {
-  font-family: "Avenir Next","Helvetica Neue",Helvetica,Arial,sans-serif;
+@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css");
+
+pre {
+  color: black;
+  background-color: lightgrey;
+}
+
+pre code {
+  font-size: large;
+}
+
+.esri-view {
+  margin-bottom: 1em !important;
 }
