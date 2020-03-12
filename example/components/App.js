@@ -26,9 +26,9 @@ function App() {
       </TabList>
 
       <TabPanel>
-        <p>
-          <code>const [ref] = useWebMap(id);</code>
-        </p>
+<pre><code>{`  const [ref] = useWebMap(id);
+  return <div style={{ height: 400 }} ref={ref} />;
+`}</code></pre>
         <WebMap id="e691172598f04ea8881cd2a4adaa45ba" />
         <p>
           Based on the{" "}
@@ -39,9 +39,9 @@ function App() {
         </p>
       </TabPanel>
       <TabPanel>
-        <p>
-          <code>const [ref] = useWebScene(id);</code>
-        </p>
+        <pre><code>{`  const [ref] = useWebScene(id);
+  return <div style={{ height: 400 }} ref={ref} />;
+`}</code></pre>
         <WebScene id="3a9976baef9240ab8645ee25c7e9c096" />
         <p>
           Based on the{" "}
@@ -52,9 +52,9 @@ function App() {
         </p>
       </TabPanel>
       <TabPanel>
-        <p>
-          <code>{`const [ref] = useMap({basemap: "streets"}, {view: {center, zoom}});`}</code>
-        </p>
+        <pre><code>{`  const [ref] = useMap({basemap: "streets"}, {view: {center, zoom}});
+  return <div style={{ height: 400 }} ref={ref} />;
+`}</code></pre>
         <MapView />
         <p>
           Based on the{" "}
@@ -65,9 +65,9 @@ function App() {
         </p>
       </TabPanel>
       <TabPanel>
-        <p>
-          <code>{`const [ref] = useScene({basemap, ground}, {view: {center, zoom});`}</code>
-        </p>
+        <pre><code>{`  const [ref] = useScene({basemap, ground}, {view: {center, zoom});
+  return <div style={{ height: 400 }} ref={ref} />;
+`}</code></pre>
         <SceneView />
         <p>
           Based on the{" "}
@@ -78,9 +78,11 @@ function App() {
         </p>
       </TabPanel>
       <TabPanel>
-        <p>
-          <code>{`useEvent(view, "click", onClick); useWatch(view, 'zoom', onZoomChange);`}</code>
-        </p>
+        <pre><code>{`  const [ref, view] = useScene({basemap, ground}, {view: {center, zoom});
+  useEvent(view, "click", onClick);
+  useWatch(view, 'zoom', onZoomChange);
+  return <div style={{ height: 400 }} ref={ref} />;
+`}</code></pre>
         <EventsMap />
         <p>
           Based on the{" "}
@@ -91,9 +93,10 @@ function App() {
         </p>
       </TabPanel>
       <TabPanel>
-        <p>
-          <code>{`useGraphics(view, [pointJson, lineJson, polygonJson]);`}</code>
-        </p>
+        <pre><code>{`  const [ref, view] = useMap({basemap}, {view: {center, zoom});
+  useGraphics(view, [pointJson, lineJson, polygonJson]);
+  return <div style={{ height: 400 }} ref={ref} />;
+`}</code></pre>
         <GraphicsMap />
         <p>
           Based on the{" "}

@@ -1,3 +1,14 @@
 body {
+  background-color: white;
+  color: black;
   font-family: "Avenir Next","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+pre {
+  color: black;
+  background-color: lightgrey;
+}
+
+pre code {
+  font-size: x-large;
 }
