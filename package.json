@@ -1,7 +1,12 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Custom React hooks for using the ArcGIS API for JavaScript with esri-loader",
-  "keywords": ["react", "arcgis", "esri", "esri-loader"],
+  "keywords": [
+    "react",
+    "arcgis",
+    "esri",
+    "esri-loader"
+  ],
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
