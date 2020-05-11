@@ -1,0 +1,23 @@
+import { useEffect } from 'react';
+import { loadModules } from 'esri-loader';
+
+export function useLayerFeatures(view, jsonLayers) {
+  useEffect(() => {
+    if (!view || !jsonLayers) {
+      return;
+    }
+
+    let layers= [];
+    loadModules(['esri/layers/FeatureLayer']).then(([FeatureLayer]) => {
+        layers = jsonLayers.map(jsonLayer => new FeatureLayer(jsonLayer.featureLayerProperties.url));
+        view.map.addMany(layers)
+    });
+    return function removeFeatureLayerss() {
+      view && view.FeatureLayers.removeMany(layers);
+    };
+  }, [view, jsonLayers]);
+}
+
+export function useLayerFeature(view, jsonGraphic) {
+  return useLayerFeatures(view, [jsonGraphic]);
+}
