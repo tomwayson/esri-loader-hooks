@@ -2,6 +2,7 @@ import * as React from 'react';
 import "react-tabs/style/react-tabs.css";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import WebMap from './WebMap';
+import WebMapAuth from './WebMapAuth';
 import MapView from './MapView';
 import WebScene from './WebScene';
 import SceneView from './SceneView';
@@ -23,6 +24,7 @@ function App() {
         <Tab>Scene</Tab>
         <Tab>Events</Tab>
         <Tab>Graphics</Tab>
+        <Tab>Web Map with Authentication</Tab>
       </TabList>
 
       <TabPanel>
@@ -105,6 +107,19 @@ function App() {
           </a>{" "}
           sample.
         </p>
+      </TabPanel>
+      <TabPanel>
+        <pre><code>{`  useIdentityManager([
+    {
+      appId: 'myAppId',
+      popup: false,
+    },
+  ]);
+  const [ref] = useWebMap(id);
+  return <div style={{ height: 400 }} ref={ref} />;
+`}</code></pre>
+        <WebMapAuth id="73248bc27cdb4b4e97a12b074ae34689" />
+        
       </TabPanel>
     </Tabs>
   </div>;

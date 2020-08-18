@@ -219,6 +219,29 @@ function PointMap({ latitude, longitude }) {
 
 You can add multiple graphics at the same time with `useGraphics(view, arrayOfJsonGraphics)`.
 
+### Authentication
+
+If your map has private content, when using `useWebMap` a login modal will prompt the user for a username and password. If you'd like to use the OAuth login popup for a smoother login process, you can register an OAuth Client ID with `useIdentityManager([oAuthInfo])`. The input parameter of this hook is an array of objects, each having properties of the [OAuthInfo module](https://developers.arcgis.com/javascript/latest/api-reference/esri-identity-OAuthInfo.html#properties-summary).
+
+#### useIdentityManager
+
+```jsx
+import React from 'react';
+import { useWebMap, useIdentityManager } from 'esri-loader-hooks';
+
+function WebMapAuth() {
+  useIdentityManager([
+    {
+      appId: 'myAppId',
+      popup: false,
+    },
+  ]);
+
+  const [ref] = useWebMap('e691172598f04ea8881cd2a4adaa45ba');
+  return <div style={{ height: 400 }} ref={ref} />;
+}
+```
+
 ### Working with view hooks
 
 #### Arguments
