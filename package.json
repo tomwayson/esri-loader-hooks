@@ -22,7 +22,7 @@
   },
   "peerDependencies": {
     "esri-loader": "^2.13.0",
-    "react": ">=16"
+    "react": ">=16.8.0"
   },
   "husky": {
     "hooks": {
