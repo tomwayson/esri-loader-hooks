@@ -1,0 +1,1 @@
+npx --prefer-offline tsdx lint
