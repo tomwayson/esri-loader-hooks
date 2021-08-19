@@ -9,6 +9,7 @@ function isItem(map: any) {
 export interface ILoadViewOptions {
   isScene?: boolean;
   view?: any;
+  portalUrl?: string; // defaults to 'https://www.arcgis.com'
   // [index: string]: any;
 }
 
@@ -35,12 +36,16 @@ export function loadItem(item: any, options: ILoadViewOptions = {}) {
     ? ['esri/views/SceneView', 'esri/WebScene']
     : ['esri/views/MapView', 'esri/WebMap'];
   return loadModules(modules).then(([ViewClass, MapClass]) => {
+    const { portalUrl = 'https://www.arcgis.com' } = options;
     // then we create a wem map (or scene) from the item
     const map =
       typeof item === 'string'
         ? new MapClass({
             portalItem: {
               id: item,
+              portal: {
+                url: portalUrl,
+              },
             },
           })
         : MapClass.fromJSON(item);
