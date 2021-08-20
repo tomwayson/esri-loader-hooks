@@ -99,7 +99,7 @@ export function loadTable(options: ILoadTableOptions) {
   return loadModules(['esri/widgets/FeatureTable']).then(([FeatureTable]) => {
     const { layer, portalUrl, ...opts } = options;
     if(typeof layer === 'string'){
-      loadLayer(layer, portalUrl).then((layer) => {
+      return loadLayer(layer, portalUrl).then((layer) => {
         return new FeatureTable({
           layer,
           ...opts,

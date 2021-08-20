@@ -18,14 +18,13 @@ export function useFeatureTable(layer: any, tableOptions?: {[index:string]:any},
   // see: https://github.com/facebook/react/issues/15865#issuecomment-540715333
   const initialArguments = useRef({ layer, tableOptions, portal });
 
-  // use a side effect to create the view after react has rendered the DOM
+  // use a side effect to create the table after react has rendered the DOM
   useEffect(() => {
     // define local variables to be used in the clean up function
     let cancelled = false;
     let _table: any;
     async function load() {
       const { layer, tableOptions, portal } = initialArguments.current;
-
       _table = await loadTable({
         layer,
         portalUrl: portal,
