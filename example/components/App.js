@@ -7,6 +7,7 @@ import WebScene from './WebScene';
 import SceneView from './SceneView';
 import EventsMap from './EventsMap';
 import GraphicsMap from './GraphicsMap';
+import FeatureTable from './FeatureTable';
 
 function App() {
   return <div className="container">
@@ -23,6 +24,7 @@ function App() {
         <Tab>Scene</Tab>
         <Tab>Events</Tab>
         <Tab>Graphics</Tab>
+        <Tab>FeatureTable</Tab>
       </TabList>
 
       <TabPanel>
@@ -102,6 +104,22 @@ function App() {
           Based on the{" "}
           <a href="https://developers.arcgis.com/javascript/latest/sample-code/intro-graphics/index.html">
             Intro to graphics
+          </a>{" "}
+          sample.
+        </p>
+      </TabPanel>
+      <TabPanel>
+<pre><code>{`  const [ref] = useFeatureTable(layer, { visibleElements: { selectionColumn: false } });
+  return <div style={{ height: 600 }} ref={ref} />;
+`}</code></pre>
+        <FeatureTable
+          layer="https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/CollegesUniversities/FeatureServer/0"
+          tableOptions={{ visibleElements: { selectionColumn: false } }}
+        />
+        <p>
+          Based on the{" "}
+          <a href="https://developers.arcgis.com/javascript/latest/sample-code/widgets-featuretable/index.html">
+            Use a stand alone FeatureTable
           </a>{" "}
           sample.
         </p>

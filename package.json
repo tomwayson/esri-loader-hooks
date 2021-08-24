@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Custom React hooks for using the ArcGIS API for JavaScript with esri-loader",
   "keywords": [
     "react",
@@ -24,11 +24,6 @@
     "esri-loader": "^2.13.0",
     "react": ">=16"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
   "prettier": {
     "printWidth": 80,
     "semi": true,
@@ -42,14 +37,14 @@
     "@types/jest": "^25.1.3",
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
-    "eslint-plugin-react-hooks": "^2.5.0",
-    "esri-loader": "^2.13.0",
-    "husky": "^4.2.3",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "esri-loader": "^3.2.0",
+    "husky": "^7.0.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "tsdx": "^0.12.3",
-    "tslib": "^1.11.1",
-    "typescript": "^3.8.3"
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.3.5"
   },
   "dependencies": {
     "hooks": "^0.3.2"
