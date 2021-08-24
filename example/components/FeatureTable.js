@@ -6,7 +6,7 @@ function FeatureTable({ layer, tableOptions }) {
   // this custom hook takes a layer & an optional tableOptions objects and
   // returns a ref you can use to assign a container DOM node
   const [ref] = useFeatureTable(layer, tableOptions);
-  return <div style={{ height: 400 }} ref={ref} />;
+  return <div style={{ height: 600 }} ref={ref} />;
 }
 
 export default FeatureTable;

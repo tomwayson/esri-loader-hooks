@@ -110,7 +110,7 @@ function App() {
       </TabPanel>
       <TabPanel>
 <pre><code>{`  const [ref] = useFeatureTable(layer, { visibleElements: { selectionColumn: false } });
-  return <div style={{ height: 400 }} ref={ref} />;
+  return <div style={{ height: 600 }} ref={ref} />;
 `}</code></pre>
         <FeatureTable
           layer="https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/CollegesUniversities/FeatureServer/0"

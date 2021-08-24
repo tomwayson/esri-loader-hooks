@@ -9,7 +9,7 @@ Custom React [hooks](https://reactjs.org/docs/hooks-intro.html) for using the [A
 ## Usage
 
 ```jsx
-import { 
+import {
   useMap, useScene, useWebMap, useWebScene, // create a map or scene
   useEvent, useEvents, useWatch, useWatches, // handle events or property changes
   useGraphic, useGraphics // add graphics to a map/scene
@@ -24,7 +24,7 @@ Before using these hooks you'll need to at least [load the ArcGIS API styles](ht
 
 ### Maps, Scenes, and Views
 
-You'll want to start with one of the hooks for working with [maps](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html), scenes, and their associated [views](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html). 
+You'll want to start with one of the hooks for working with [maps](https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html), scenes, and their associated [views](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html).
 
 All of these hooks return an array where the first element is a [ref](https://reactjs.org/docs/refs-and-the-dom.html) you use to set the DOM node to be used as the view's [container](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html#container), and the second element is the instance of the view, which you can use with the [handler](#events-and-watches) and [graphics](#graphics) hooks below, or in your own hooks.
 
@@ -114,6 +114,32 @@ function SceneView() {
 }
 ```
 
+### FeatureTables
+
+You can use the `useFeatureTable` hook to load a stand-alone table or use it in conjunction with a view containing the layer that the table is configured with to enable table to map or table to scene interaction.
+
+Like the hooks above, this hook returns an array where the first element is a [ref](https://reactjs.org/docs/refs-and-the-dom.html) you use to set the DOM node to be used as the table's [container](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#container), and the second element is the instance of the table, which you can use with the [handler](#events-and-watches) hook below, or in your own hooks.
+
+#### useFeatureTable
+
+The `useFeatureTable` hook takes a `layer` parameter which can be a layer item id, a url to a feature layer or scene layer, or a feature or scene layer instance. The second optional parameter is an `options` object used to set any constructor options on the FeatureTable. See [options](#arguments) for general information about this parameter or [FeatureTable properties](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-FeatureTable.html#properties-summary) for the specific table options you can set.
+
+Load a stand-alone FeatureTable from a layer's URL without a selector column:
+
+```jsx
+import React from 'react';
+import {useFeatureTable} from 'esri-loader-hooks';
+
+function FeatureTable() {
+  const layerUrl = 'https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/CollegesUniversities/FeatureServer/0';
+  const tableOptions = {
+    visibleElements: { selectionColumn: false }
+  };
+  const [ref] = useFeatureTable(layerUrl, tableOptions);
+  return <div style={{ height: 600 }} ref={ref} />;
+}
+```
+
 ### Events and watches
 
 Once you've used one of the above hooks to load a view, you can register event handlers or watch for property changes with the hooks below.
@@ -191,7 +217,7 @@ import { useMap, useGraphics } from "esri-loader-hooks";
 function PointMap({ latitude, longitude }) {
   const geometry = {
     type: "point", // autocasts as new Point()
-    latitude, 
+    latitude,
     longitude
   };
   var symbol = {
@@ -224,6 +250,8 @@ You can add multiple graphics at the same time with `useGraphics(view, arrayOfJs
 #### Arguments
 
 All of these hooks take an optional `options` hash as the final argument. You can pass initial view properties via `options.view`.
+
+One optional property you can pass to the `options` hash that is not a view or map constructor option is `portalUrl`. Most users will not need to set this and it defaults to ArcGIS Online ('https://www.arcgis.com'). However, if you have a private portal or are a member of the Early Adopters program you may need to load an item or layer from somewhere other than the default ArcGIS Online portal.
 
 **NOTE**: All of the arguments to these hooks will _only_ be used in the map and view constructors. Even if you pass in component props or state the corresponding instance properties will **not** be updated as your component updates.
 
