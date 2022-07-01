@@ -314,6 +314,10 @@ The event and watch hooks could be used without esri-loader. For now you can cop
 
 I'm not (yet), mainly because I don't have a production React app, but you go ahead.
 
+#### What is the minimum version of React I can use?
+
+[React v16.8](https://reactjs.org/blog/2019/02/06/react-v16.8.0.html) added hooks, so that is the minimum version you should use with this library.
+
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md).
