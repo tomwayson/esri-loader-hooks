@@ -2,6 +2,8 @@
 
 Custom React [hooks](https://reactjs.org/docs/hooks-intro.html) for using the [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/) with [esri-loader].
 
+> NOTE: this library is no longer needed. You can now and should use @arcgis/core directly in React instead of esri-loader.
+
 ## Install
 
 `npm install --save esri-loader esri-loader-hooks` or `yarn add esri-loader esri-loader-hooks`
